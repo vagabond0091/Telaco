@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dashboard', function () {
+    return view('layouts/dashboard/app');
+});
+Route::resource('property','\App\Http\Controllers\PropertyController');
+Route::get('/search', [App\Http\Controllers\AjaxController::class, 'subproperty']);

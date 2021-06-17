@@ -1,1 +1,2 @@
- @include('layouts.dashboard.app-landlord')
+  @include('layouts.main') 
+ 

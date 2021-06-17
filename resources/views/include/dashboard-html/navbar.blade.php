@@ -1,9 +1,11 @@
 <div class="d-flex flex-column flex-shrink-0 p-3 bg-dark postion-fixed"">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-      <img src="/building-regular.svg" alt="">
+      <img src="/building-regular.svg" alt="Logo Here">
       <span class="fs-4 link-light">Sidebar</span>
     </a>
+
     <hr>
+    <h5 class=" link-light">Dashboards</h4>
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
 
@@ -32,7 +34,7 @@
          </span>
       </li>
       <li class="nav-item">
-         <span class="icon-wrapper"><i class="material-icons mySize">folder_open</i></span>
+         <span class="icon-wrapper"><i class="material-icons mySize">content_paste</i></span>
          <span>
         <a href="#" class="nav-link link-light">
 
@@ -41,7 +43,7 @@
       </span>
       </li>
       <li class="nav-item">
-        <span class="icon-wrapper"><i class="material-icons mySize">folder_open</i></span>
+        <span class="icon-wrapper"><i class="material-icons mySize">assessment</i></span>
         <span>
           <a href="#" class="nav-link link-light">
 
@@ -49,24 +51,28 @@
           </a>
         </span>
       </li>
+
       <li class="nav-item">
-         <span class="icon-wrapper"><i class="material-icons mySize">folder_open</i></span>
+         <span class="icon-wrapper"><i class="material-icons mySize">build</i></span>
          <span>
           <a href="#" class="nav-link link-light">
             Maintenance Request
           </a>
         </span>
       </li>
-      <li>
-        <a href="#" class="nav-link link-light">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-          Notifications
-        </a>
+      <li class="nav-item">
+        <span class="icon-wrapper"><i class="material-icons mySize">notifications</i></span>
+        <span>
+          <a href="#" class="nav-link link-light">
+
+            Notifications
+          </a>
+        </span>
       </li>
-      <li>
+      <li class="nav-item">
+        <span class="icon-wrapper"><i class="material-icons mySize">settings</i></span>
         <a href="#" class="nav-link link-light">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-          Accoount Settings
+          Account Settings
         </a>
       </li>
     </ul>
