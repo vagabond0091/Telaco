@@ -5,6 +5,7 @@
 
 
     <div class="container ml-5">
+          @include('include.message')
           @yield('content')
     </div>
 </section>

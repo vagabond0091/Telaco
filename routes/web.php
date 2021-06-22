@@ -22,3 +22,5 @@ Route::get('/dashboard', function () {
 });
 Route::resource('property','\App\Http\Controllers\PropertyController');
 Route::get('/search', [App\Http\Controllers\AjaxController::class, 'subproperty']);
+// Route::get('/rented/{id}/', [App\Http\Controllers\AjaxController::class, 'rentedUpdate']);
+Route::match(['put','patch'],'/rented/{id}', [App\Http\Controllers\AjaxController::class, 'rentedUpdate']);

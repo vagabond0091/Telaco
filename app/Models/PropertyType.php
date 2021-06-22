@@ -12,6 +12,9 @@ class PropertyType extends Model
         'id',
         'property_subtype',
     ];
+    public function Property(){
+        return $this->hasMany(Property::class);
+    }
     public function PropertySubType(){
         return $this->hasMany(PropertySubType::class);
     }

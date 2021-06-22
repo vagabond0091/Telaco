@@ -16,4 +16,8 @@ class PropertySubType extends Model
     public function PropertyType(){
         return $this->belongsTo(PropertyType::class);
     }
+    
+    public function Property(){
+        return $this->hasMany(Property::class);
+    }
 }

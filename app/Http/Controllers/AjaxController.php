@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\PropertySubType;
+use App\Models\Property;
 use Illuminate\Http\Request;
 
 class AjaxController extends Controller
@@ -21,6 +22,16 @@ class AjaxController extends Controller
     public function subproperty(Request $request){
         $property_type_id = $request->get('property_id');
         return view('property.create')->with('property_type_id',$property_type_id);
+    }
+    public function rentedUpdate(Request $request, $id){
+        $rented_property = Property::findOrfail($id);
+
+        $rented = true;
+        $rented_property->status = $rented;
+        $rented_property->save();
+
+ 
+        return redirect('/property')->with('success','Property Updated Successfully !');
     }
 
   
