@@ -161,8 +161,9 @@ class PropertyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-     return view('property.overview');   
+    {   
+        
+        return view('property.overview')->with('property_id',$id);   
     }
 
     /**
@@ -174,8 +175,7 @@ class PropertyController extends Controller
     public function edit($id)
     {
         $indoor_features = Indoor::where('IndoorFeatures','!=','none')->pluck('IndoorFeatures','id');
-        // $outdoor_features = Outdoor::where('OutdoorFeatures','!=','none')->pluck('OutdoorFeatures','id');
-        // dd($indoor_features);
+      
         
         
         
@@ -314,12 +314,7 @@ class PropertyController extends Controller
         return redirect('/property')->with('error','Property Deleted Successful');
     }
     
-    // public function rentedUpdate(Request $request, $id){
-    //     $data = Property::findOrfail($id);
-
-    //     dd($data);
-
-
-    //     return redirect('/property')->with('success','Property Updated Successfully !');
-    // }
+    public function search(){
+        return view('property.search');
+    }
 }

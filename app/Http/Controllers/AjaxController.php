@@ -33,7 +33,16 @@ class AjaxController extends Controller
  
         return redirect('/property')->with('success','Property Updated Successfully !');
     }
+    public function overview_api($id)
+    {   
+        $property = Property::with('Indoor','OtherInformation','Outdoor')->findOrfail($id);
+        // dd($property);
+        return response()->json($property);   
+    }
+    public function search(){
+        $property = Property::with('Indoor','OtherInformation','Outdoor')->get();
 
-  
+        return response()->json($property);
+    }
 
 }
