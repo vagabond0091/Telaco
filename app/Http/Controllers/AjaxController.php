@@ -39,10 +39,16 @@ class AjaxController extends Controller
         // dd($property);
         return response()->json($property);   
     }
-    public function search(){
-        $property = Property::with('Indoor','OtherInformation','Outdoor')->get();
+    public function search(Request $request){
+        $search =  $request->input('search-collection');
+        // dd($search);
+        $property = Property::with('Indoor','OtherInformation','Outdoor')->where('barangay','LIKE','%'.$search.'%')->get();
 
         return response()->json($property);
     }
-
+   
+    public function propertyCollection(){
+        $properties = Property::with('Indoor','OtherInformation','Outdoor')->where('status',0)->get();
+        return response()->json($properties);
+    }
 }

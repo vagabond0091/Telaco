@@ -5,6 +5,7 @@
         <span><a href="#">Home</a></span>&gt;<span>Metro Manila</span>&gt;<span>Muntinlupa</span>&gt;<span>Poblacion</span>
 </div>
 <div class="property-search-wrapper row">
+    <input type="hidden" name="search-data" id="search-collection" value="{{$search}}">
         <div class="search-map col-5">
             <div id="search-map" class="test">
 
@@ -16,13 +17,16 @@
                          <a href="#" class="btn-primary ">All Filter</a>    
                     </div>
                     <div class="search-wrapper col-12">
+                   
                         <span>
                         <input type="text" name="search" id="search-data" placeholder="   Enter Barangay">
                         </span>
                         
                         <span>
-                            <button><i class="fas fa-search"></i></button>
+                            <button type="submit"><i class="fas fa-search"></i></button>
                         </span>
+                      
+                    
                     </div>
                 </div>
                 <div class="search-info row mt-3">

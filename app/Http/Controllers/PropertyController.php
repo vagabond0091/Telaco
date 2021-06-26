@@ -76,6 +76,7 @@ class PropertyController extends Controller
         $property->description = $request->input('description');
         $property->province = $request->input('province');
         $property->city = $request->input('city');
+        $property->barangay = $request->input('barangay');
         $property->address = $request->input('address');
         $property->latitude = $request->input('latitude');
         $property->longtitude = $request->input('longtitude');
@@ -314,7 +315,14 @@ class PropertyController extends Controller
         return redirect('/property')->with('error','Property Deleted Successful');
     }
     
-    public function search(){
-        return view('property.search');
+    public function search(Request $request){
+        $search = $request->input('search-collection');
+        // dd($search);
+        return view('property.search')->with('search',$search);
+    }
+    public function propertyCollection(Request $request){
+        
+        
+        return view('property.collections');
     }
 }

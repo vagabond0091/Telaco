@@ -25,5 +25,5 @@ Route::get('/search', [App\Http\Controllers\AjaxController::class, 'subproperty'
 Route::resource('inquiry','\App\Http\Controllers\InquiryController');
 // Route::get('/rented/{id}/', [App\Http\Controllers\AjaxController::class, 'rentedUpdate']);
 Route::match(['put','patch'],'/rented/{id}', [App\Http\Controllers\AjaxController::class, 'rentedUpdate']);
-Route::get('/search/property', [App\Http\Controllers\PropertyController::class, 'search'])->name('search');
-Route::get('/property/collections', [App\Http\Controllers\PropertyController::class, 'propertyCollection'])->name('Collection');
+Route::get('/search', [App\Http\Controllers\PropertyController::class, 'search'])->name('search');
+Route::get('/collections', [App\Http\Controllers\PropertyController::class, 'propertyCollection'])->name('Collection');

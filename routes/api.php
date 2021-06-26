@@ -20,3 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('subproperty','\App\Http\Controllers\AjaxController@index');
 Route::get('overview/{id}','\App\Http\Controllers\AjaxController@overview_api');
 Route::get('search','\App\Http\Controllers\AjaxController@search');
+Route::get('collections','\App\Http\Controllers\AjaxController@propertyCollection');
