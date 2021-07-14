@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Inquiry;
+Use Redirect;
+use Auth;
 use DB;
 class InquiryController extends Controller
 {
@@ -14,7 +16,8 @@ class InquiryController extends Controller
      */
     public function index()
     {
-        //
+        $user_id = Auth::user()->id;
+        return view('inquiry.index')->with('user_id',$user_id);
     }
 
     /**
@@ -35,33 +38,41 @@ class InquiryController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'name' => 'required',
-            'phone' => 'required',
-            'email' => 'required',
-        ]);
-
-        $inquiries = new Inquiry;
-        $inquiries->name = $request->input('name');
-        $inquiries->phone = $request->input('phone');
-        $inquiries->email = $request->input('email');
-        $inquiries->accepted = false;
-        $inquiries->save();
-        $inquiry_id = $inquiries->id;
-    
         $property_id = $request->input('data-id');
-        // dd($request->all());
-        DB::table('inquire_property')->insert([
-            'inquiry_id' => $inquiry_id,
-            'property_id' => $property_id,
-            'created_at' => date("Y-m-d"),
-        ]);
+        $inquiries = DB::table('inquiry_property')
+        ->join('inquiries', 'inquiry_property.inquiry_id', '=', 'inquiries.id')
+        ->join('users', 'inquiry_property.user_id', '=', 'users.id')
+        ->join('properties', 'inquiry_property.property_id', '=', 'properties.id')
+        ->where('user_id','=',Auth::user()->id)->where('property_id','=',$property_id)->exists();
         
+       if($inquiries == false){
+        $inquiry = new Inquiry;
+        $inquiry->property_inquiry = 'Pending';
+        $inquiry->save();
+        $inquiry_id = $inquiry->id;
+        // $property_id = $request->input('data-id');
+        $user_id = Auth::user()->id;
+        $status = 'Pending';
+        $properties = DB::table('inquiry_property')->insert([
+            'user_id' => $user_id,
+            'property_id' => $property_id,
+            'inquiry_id' => $inquiry_id,
+            'created_at' => date("Y-m-d"),
+           
+        ]);
+        return redirect('/property/'.$property_id)->with('success','Inquired Successfully');
+       }
+       else{
+        return redirect('/property/'.$property_id)->with('error','Already Inquired in this property');
+       }
+        
+        // ->join('users', 'property_user.user_id', '=', 'users.id')
+        // ->join('properties', 'property_user.property_id', '=', 'properties.id')
+        // ->where('user_id','=',$user_id)
       
-
-        return redirect('/')->with('property_id',$property_id)->with('success','Inquired Successfully'); 
-
-
+        // dd($properties);
+        // return redirect('/property/'.$property_id)->with('success','Inquired Successfully');
+        // $properties->save();
     }
 
     /**
@@ -72,7 +83,7 @@ class InquiryController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('inquiry.calendar');
     }
 
     /**
@@ -83,7 +94,8 @@ class InquiryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $inquiry = Inquiry::find($id);
+        return view('inquiry.update')->with('inquiry',$inquiry);
     }
 
     /**
@@ -95,7 +107,11 @@ class InquiryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $property_id = $request->input('property_id');
+        $inquiry = Inquiry::findOrFail($id);
+        $inquiry->property_inquiry = 'Removed';
+        $inquiry->save();
+        return redirect('/property')->with('error','Inquiry Deleted Successful');        
     }
 
     /**
@@ -106,6 +122,9 @@ class InquiryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $inquiry = Inquiry::findOrfail($id);
+        $inquiry->delete();
+        return redirect('/inquiry')->with('error','Inquiry Deleted Succesfully');
     }
+    
 }

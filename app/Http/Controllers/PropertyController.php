@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 use App\Models\PropertySubType;
 use App\Models\PropertyType;
 use App\Models\Property;
+use App\Models\Inquiry;
 use App\Models\OtherInformation;
 use App\Models\Outdoor;
 use App\Models\Indoor;
+use App\Models\User;
+use Auth;
 use DB;
 use Illuminate\Http\Request;
 
@@ -17,13 +20,21 @@ class PropertyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
 
+     
     {
-        $properties = Property::all();
-        // dd($properties);
-        // $props = PropertyType::pluck('property_type','id'); 
-        return view('property.index')->with('properties',$properties);
+        
+        // $properties = User::with('Property')->get();
+       
+        $properties = DB::table('property_user')
+            ->join('users', 'property_user.user_id', '=', 'users.id')
+            ->join('properties', 'property_user.property_id', '=', 'properties.id')->where('user_id','=',Auth::user()->id)->get();
+            
+          
+           
+          
+            return view('property.index')->with('properties',$properties);
     }
    
 
@@ -102,6 +113,14 @@ class PropertyController extends Controller
         $other_info->total_floor = $request->input('total_floor');
         $other_info->property_id = $property_id;
         $other_info->save();
+        $user_id = Auth::user()->id;
+        DB::table('property_user')->insert([
+            'user_id' => $user_id,
+            'property_id' => $property_id,
+            'created_at' => date("Y-m-d"),
+        ]);
+        $user = User::findOrfail($user_id);
+        $user->save();
         $indoor_features_data = $request->indoor_features;
         if($indoor_features_data == null){
             $indoor_id = 3;

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use Auth;
 class Property extends Model
 {
     use HasFactory;
@@ -43,4 +44,12 @@ class Property extends Model
     public function Inquiry(){
         return $this->belongsToMany(Inquiry::class)->withTimestamps();
      }
+     public function Maintenance(){
+        return $this->belongsToMany(Maintenance::class)->withTimestamps();
+     }
+     public function User(){
+         
+        return $this->belongsToMany(User::class)->withTimestamps();
+     }
+    
 }

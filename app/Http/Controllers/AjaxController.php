@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 use App\Models\PropertySubType;
 use App\Models\Property;
+use App\Models\Inquiry;
+use App\Models\User;
+use Auth;
+use DB;
 use Illuminate\Http\Request;
-
+// use Input;
 class AjaxController extends Controller
 {
     /**
@@ -29,7 +33,7 @@ class AjaxController extends Controller
         $rented = true;
         $rented_property->status = $rented;
         $rented_property->save();
-
+        
  
         return redirect('/property')->with('success','Property Updated Successfully !');
     }
@@ -51,4 +55,14 @@ class AjaxController extends Controller
         $properties = Property::with('Indoor','OtherInformation','Outdoor')->where('status',0)->get();
         return response()->json($properties);
     }
+    public function getAllSchedule($id){
+        // dd($id);
+        $schedule_data = DB::table('inquiry_schedule')
+    ->select(['title','start','schedule_id'])
+    ->join('schedules', 'inquiry_schedule.schedule_id', '=', 'schedules.id')
+    ->join('users', 'inquiry_schedule.user_id', '=', 'users.id')
+    ->join('inquiries','inquiry_schedule.inquiry_id', '=', 'inquiries.id')->where('inquiry_schedule.user_id',$id)->get();
+  
+   return response()->json($schedule_data);
+}
 }

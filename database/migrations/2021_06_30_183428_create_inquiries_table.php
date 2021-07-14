@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddAcceptedToInquiriesTable extends Migration
+class CreateInquiriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class AddAcceptedToInquiriesTable extends Migration
      */
     public function up()
     {
-        Schema::table('inquiries', function (Blueprint $table) {
-            $table->boolean('accepted');
+        Schema::create('inquiries', function (Blueprint $table) {
+            $table->id();
+            $table->string('property_inquiry');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +27,6 @@ class AddAcceptedToInquiriesTable extends Migration
      */
     public function down()
     {
-        Schema::table('inquiries', function (Blueprint $table) {
-            $table->dorpColumn('accepted');
-        });
+        Schema::dropIfExists('inquiries');
     }
 }

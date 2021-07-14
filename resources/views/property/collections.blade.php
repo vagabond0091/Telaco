@@ -15,7 +15,7 @@
                     <div class="search-wrapper col-12">
                     {!! Form::open(['action' => 'PropertyController@search', 'method' => 'GET','collection_id' => 'collection_forms']) !!}
                         <span>
-                        <input type="text" name="search-collection" id="search-data" placeholder="  Enter Barangay">
+                        <input type="text" name="search-collection" id="search-collection" placeholder="  Enter Barangay">
                         </span>
                         
                         <span>

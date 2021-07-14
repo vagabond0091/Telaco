@@ -11,7 +11,7 @@
 
         <span class="icon-wrapper"><i class="material-icons mySize">business</i></span>
         <span>
-        <a href="#" class="nav-link link-light " aria-current="page">
+        <a href="/property" class="nav-link link-light " aria-current="page">
 
           Properties
         </a>
@@ -36,7 +36,7 @@
       <li class="nav-item">
          <span class="icon-wrapper"><i class="material-icons mySize">content_paste</i></span>
          <span>
-        <a href="#" class="nav-link link-light">
+        <a href="/screening" class="nav-link link-light">
 
           Screening
         </a>

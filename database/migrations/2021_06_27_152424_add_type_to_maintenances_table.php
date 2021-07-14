@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInquiresTable extends Migration
+class AddTypeToMaintenancesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateInquiresTable extends Migration
      */
     public function up()
     {
-        Schema::create('inquiries', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('phone');
-            $table->string('email');
-            $table->timestamps();   
+        Schema::table('maintenances', function (Blueprint $table) {
+            $table->string('maintenance_type');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateInquiresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inquires');
+        Schema::table('maintenances', function (Blueprint $table) {
+            $table->dropColumn('maintenance_type');
+        });
     }
 }

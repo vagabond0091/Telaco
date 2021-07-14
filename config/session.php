@@ -156,7 +156,7 @@ return [
     */
 
     'domain' => env('SESSION_DOMAIN', null),
-
+    // 'domain' => 'http://www.127.0.0.1:8000/',
     /*
     |--------------------------------------------------------------------------
     | HTTPS Only Cookies

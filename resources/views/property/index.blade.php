@@ -205,9 +205,11 @@
                 
         
         </div>
-        @foreach($properties as $property) 
-        <div class="property-info row mt-4">
-                <div class=" card col-4 image">
+    @if($properties->count() != 0)
+    @foreach($properties as $property) 
+       <div class="property-info row mt-4">
+               
+                <div class="card col-4 image">
                     <img src="{{  asset('storage/img/virtual-showroom/'.$property->showroom_img)}}" alt="property-image">
                 </div>
                 <div class="col-5">
@@ -235,6 +237,20 @@
                         <span class="col-3" >Updated at</span>
                         <span  class="col-9">{{$property->updated_at}}</span>
                    </div>
+                   <div class="property-info-wrapper mt-3">
+                        <div class="views col-12"> 
+                                <span>
+                                    {!! Form::open(['action' => ['UserController@landlordInquiry',$property->id], 'method' => 'POST','class'=> 'pull-right d-inline-block']) !!}
+                                        <input type="hidden" name="property-data" value="{{$property->id}}">
+                                     
+                                        <button class="btn-secondary border-0 padding "> View Inquiry
+                                        </button> 
+                                    {{Form::hidden('_method','PUT') }} 
+                                    {!! Form::close() !!} 
+                                </span>   
+                                
+                        </div>
+                    </div>
                  
                 </div>
                 <div class="col-3">
@@ -247,32 +263,34 @@
                             <span>Rented</span>
                         @endif
                         </div>
-                    <div class="property-views d-flex justify-content-center">
-                        <div class="views col-4">
-                                <p>0 Views</p>
-                                <p >0 inquiry</p>
-                        </div>
-                    </div>
+                   
                     <div class="btn-group d-flex justify-content-center">
-                        <a href="/property/{{$property->id}}/edit" class=" btn-secondary btn-style"><i class="far fa-edit fa-lg"></i></a>
+                        <a href="/property/{{$property->property_id}}/edit" class=" btn-secondary btn-style"><i class="far fa-edit fa-lg"></i></a>
                      
-                        {!! Form::open(['action' => ['PropertyController@destroy', $property->id], 'method' => 'POST','class'=> 'pull-right']) !!}
+                        {!! Form::open(['action' => ['PropertyController@destroy', $property->property_id], 'method' => 'POST','class'=> 'pull-right']) !!}
                         {{Form::hidden('_method', 'DELETE') }}
                          <button type="submit" class="btn-danger btn-style"><i class="far fa-trash-alt fa-lg"></i></button>
 
                         {!! Form::close() !!}
                     </div>
                     <div class="btn-rented  d-flex justify-content-center mt-3 ">
-                        {!! Form::open(['action' => ['AjaxController@rentedUpdate', $property->id], 'method' => 'POST','class'=> 'pull-right']) !!}
+                        {!! Form::open(['action' => ['AjaxController@rentedUpdate', $property->property_id], 'method' => 'POST','class'=> 'pull-right']) !!}
                         {{Form::hidden('_method','PUT') }}
                         @if($property->status == false)
                             <button class="btn-secondary border-0 padding">Mark as rented</button> 
                         @endif
                         {!! Form::close() !!} 
                     </div>    
+                  
                 </div>
         </div>  
         @endforeach 
+    @else
+    
+        <div class="property-info row-mt-4">
+            <h2>No Property yet !</h2>
+        </div>
+    @endif
     </div>
       
  </div> 

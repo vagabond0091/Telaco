@@ -7,14 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Inquiry extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'id',
-        'name',
-        'phone',
-        'email'
+        'property_inquiry',
+      
     ];
-    use HasFactory;
-    public function Property(){
+    public function User(){
+         
+        return $this->belongsToMany(User::class)->withTimestamps();
+     }
+     public function Property(){
         return $this->belongsToMany(Property::class)->withTimestamps();
      }
+     public function Schedule(){
+      return $this->belongsToMany(Schedule::class)->withTimestamps();
+  }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInquirePropertyTable extends Migration
+class Maintenance extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreateInquirePropertyTable extends Migration
      */
     public function up()
     {
-        Schema::create('inquire_property', function (Blueprint $table) {
-            $table->foreignId('inquiry_id')->constrained('inquiries')->onUpdate('Cascade')->onDelete('Cascade');
-            $table->foreignId('property_id')->constrained('properties')->onUpdate('Cascade')->onDelete('Cascade');
+        Schema::create('maintenances', function (Blueprint $table) {
+            $table->id();
+            $table->longText('scenario');
             $table->timestamps();
+        
         });
+        
+       
     }
 
     /**
@@ -27,6 +30,7 @@ class CreateInquirePropertyTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inquire_property');
+        
+        Schema::dropIfExists('maintenance');
     }
 }

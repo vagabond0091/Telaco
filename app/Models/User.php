@@ -6,7 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
+use Auth;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -20,6 +20,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar',
+        'avatar_original'
     ];
 
     /**
@@ -40,4 +42,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function Maintenance(){
+        return $this->belongsToMany(Maintenance::class)->withTimestamps();
+     }
+     public function Property(){
+        return $this->belongsToMany(Property::class)->withTimestamps();
+     }
+     public function Inquiry(){
+         
+        return $this->belongsToMany(Inquiry::class)->withTimestamps();
+     }
+     public function Schedule(){
+         
+        return $this->belongsToMany(Schedule::class)->withTimestamps();
+     }
+    
+
 }
